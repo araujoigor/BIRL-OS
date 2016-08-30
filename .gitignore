@@ -1,3 +1,6 @@
+.vscode/
+bin/
+
 # Object files
 *.o
 *.ko
