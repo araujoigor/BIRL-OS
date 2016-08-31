@@ -26,19 +26,19 @@ unsigned char color = 0xF0;
 //A pointer to the framebuffer memory
 framebuffer *fbPtr = (framebuffer *)MEMORY_START;
 
-void putChar(char letter){
+void fb_putChar(char letter){
     fbPtr[rowPos * COLUMN_COUNT + colPos].color = color;
     fbPtr[rowPos * COLUMN_COUNT + colPos].letter = letter;
 }
 
-int setCursorPosition(char row, char col){
+int fb_setCursorPosition(char row, char col){
     if(col >= COLUMN_COUNT || row >= ROW_COUNT) return -1;
     rowPos = row;
     colPos = col;
     return 0;
 }
 
-void write(char *buffer, unsigned int len){
+void fb_write(char *buffer, unsigned int len){
     int i = 0, j = 0;
     for(unsigned int bufIt = 0; bufIt < len; bufIt++){
         if(colPos + i >= 80){
@@ -50,7 +50,7 @@ void write(char *buffer, unsigned int len){
     }
 }
 
-void clear(){
+void fb_clear(){
     int numberOfCells = 25*80;
     short *ptr = (short *)MEMORY_START;
 

@@ -9,7 +9,7 @@
   *
   * @param letter {char} The character to be included 
   */
-void putChar(char letter);
+void fb_putChar(char letter);
 
 /**
   * setCursorPosition
@@ -19,7 +19,7 @@ void putChar(char letter);
   * @param col {char} The new column number (0 to 79)
   * @param row {char} The new row number (0 to 24)
   */
-void setCursorPosition(char col, char row);
+void fb_setCursorPosition(char col, char row);
 
 /**
   * write
@@ -29,13 +29,13 @@ void setCursorPosition(char col, char row);
   * @param buffer {char *} The source buffer to be shown on screen
   * @param row {char} The number of bytes to be shown from the buffer
   */
-void write(char *buffer, unsigned int len);
+void fb_write(char *buffer, unsigned int len);
 
 /**
   * write
   * 
   * Clears the framebuffer
   */
-void clear();
+void fb_clear();
 
 #endif

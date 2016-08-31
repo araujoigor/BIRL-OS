@@ -14,6 +14,6 @@
  *   
  *  @param port The I/O port to send the data to 
  */
- void _outb(unsigned short port, unsigned char data);
+ char _inb(unsigned short port);
 
 #endif //__IO_H__
