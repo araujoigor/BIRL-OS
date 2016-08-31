@@ -8,8 +8,6 @@ outputdir:
 	mkdir -p bin/intermediates
 	mkdir -p bin/iso/boot/grub
 
-#kernel: outputdir $(OBJECTS)
-#	ld $(LDFLAGS) $(OBJECTS) -o bin/kernel.elf
 make_source: 
 	cd src; make;
 
@@ -26,13 +24,7 @@ iso: outputdir kernel
 		-o bin/os.iso bin/iso
 
 run: iso
-	qemu-system-i386 -cdrom bin/os.iso
-
-#bin/intermediates/%.o: src/%.c outputdir
-#	$(CC) $(CFLAGS) $< -o $@
-
-#bin/intermediates/%.o: src/%.s outputdir
-#	$(AS) $(ASFLAGS) $< -o $@
+	qemu-system-i386 -cdrom bin/os.iso -serial file:os.log
 
 clean:
 	rm -rf bin/

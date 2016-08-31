@@ -2,12 +2,13 @@ CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
          -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
 
-INTERMEDIATE_FOLDER = ../../bin/intermediates/
+INTERMEDIATES_PATH = ../../bin/intermediates
+VPATH = src:$(INTERMEDIATES_PATH)
+
 SRC = $(wildcard src/*.c)
-OBJ = $(addprefix $(INTERMEDIATE_FOLDER),$(SRC:src/%.c=%.o))
+OBJ = $(SRC:src/%.c=%.o)
 
 all: $(OBJ)
-	echo $(OBJ); echo $(SRC)
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -g $< -o $@
+%.o: %.c 
+	$(CC) $(CFLAGS) $< -o $(INTERMEDIATES_PATH)/$@

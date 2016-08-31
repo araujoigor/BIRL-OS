@@ -5,13 +5,15 @@ CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 AS = nasm
 ASFLAGS = -f elf
 
-INTERMEDIATE_FOLDER = ../bin/intermediates/
+INTERMEDIATES_PATH = ../bin/intermediates
+VPATH = $(INTERMEDIATES_PATH)
+
 LOCAL_CSRC = $(wildcard *.c)
 LOCAL_SSRC = $(wildcard *.s)
 LINKER_SRC = $(wildcard *.ld)
 
-LOCAL_COBJ = $(addprefix $(INTERMEDIATE_FOLDER), $(LOCAL_CSRC:.c=.o))
-LOCAL_SOBJ = $(addprefix $(INTERMEDIATE_FOLDER), $(LOCAL_SSRC:.s=.o))
+LOCAL_COBJ = $(LOCAL_CSRC:.c=.o)
+LOCAL_SOBJ = $(LOCAL_SSRC:.s=.o)
 
 all: subfolders $(LOCAL_SOBJ) $(LOCAL_COBJ)
 
@@ -19,10 +21,10 @@ subfolders:
 	cd common; make;
 	cd drivers; make;
 
-$(LOCAL_SOBJ): $(LOCAL_SSRC)
-	$(AS) $(ASFLAGS) $< -o $@
+%.o: %.s
+	$(AS) $(ASFLAGS) $< -o $(INTERMEDIATES_PATH)/$@
 
-$(LOCAL_COBJ): $(LOCAL_CSRC)
-	$(CC) $(CFLAGS) $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $(INTERMEDIATES_PATH)/$@
 
 

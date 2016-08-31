@@ -1,10 +1,13 @@
 AS = nasm
 ASFLAGS = -f elf
-INTERMEDIATE_FOLDER = ../../../bin/intermediates/
+
+INTERMEDIATES_PATH = ../../../bin/intermediates
+V_PATH = $(INTERMEDIATES_PATH)
+
 SRC = $(wildcard *.s)
-OBJ = $(addprefix $(INTERMEDIATE_FOLDER),$(SRC:.s=.o))
+OBJ = $(SRC:.s=.o)
 
 all: $(OBJ)
 
-$(OBJ): $(SRC)
-	$(AS) $(ASFLAGS) $< -o $@
+%.o: %.s
+	$(AS) $(ASFLAGS) $< -o $(INTERMEDIATES_PATH)/$@
